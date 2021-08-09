@@ -1,22 +1,22 @@
-const { readdirSync } = require("fs"); //requireing, the module for reading files 
-const ascii = require("ascii-table"); //requiring ascii-table which is a great tool for creating ascii tables
+const { readdirSync } = require("fs"); 
+const ascii = require("ascii-table");
 
-let table = new ascii("Komutlar"); //creating a new table with the name "Commands"
+let table = new ascii("Komutlar");
 table.setHeading("Komut", "Yükleme durumu");
 
 module.exports = (client) => {
-        const commands = readdirSync(`./ardademrkomutlar/`).filter(file => file.endsWith(".js")); //it will be only a command if it ends with .js
-        for (let file of commands) { //for each file which is a command
-            let pull = require(`../ardademrkomutlar/${file}`); //get informations
-            if (pull.isim) { //get the name of the command
-                client.komutlar.set(pull.isim, pull); //set the name of the command
-                table.addRow(file, 'Hazır'); //log in table ready
+        const commands = readdirSync(`./ardademrkomutlar/`).filter(file => file.endsWith(".js")); 
+        for (let file of commands) { 
+            let pull = require(`../ardademrkomutlar/${file}`); 
+            if (pull.isim) { 
+                client.komutlar.set(pull.isim, pull); 
+                table.addRow(file, 'Hazır'); 
             } else {
-                table.addRow(file, `Hata -> Komut klasöründe isim yazılmamış.`); //if something wents wrong, do this
-                continue; //and skip
+                table.addRow(file, `Hata -> Komut klasöründe isim yazılmamış.`); 
+                continue; 
             }
-            if (pull.alternatifler && Array.isArray(pull.alternatifler)) pull.alternatifler.forEach(alias => client.alternatifler.set(alias, pull.isim)); //if there are aliases, do it too
+            if (pull.alternatifler && Array.isArray(pull.alternatifler)) pull.alternatifler.forEach(alias => client.alternatifler.set(alias, pull.isim)); 
         }
-    console.log(table.toString()); //showing the table
+    console.log(table.toString()); 
 
 }

@@ -1,7 +1,7 @@
 {
-  "name": "v13altyapi",
+  "name": "ArdaDemr",
   "version": "1.0.0",
-  "description": "",
+  "description": "ArdaDemr Versiyon 13 Bot Altyapısı",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
